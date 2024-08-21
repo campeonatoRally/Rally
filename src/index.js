@@ -1,7 +1,8 @@
 const express = require("express");
-const categoria_controller = require("./categoria.js");
+const categoria_controller = require("./controller/categoria.js");
 const campeonato_controller = require("./controller/campeonato.js");
 const pais_controller = require("./controller/pais.js");
+const fabricante_controller = require("./controller/fabricante.js");
 const app = express();
 const port = 3000;
 
@@ -87,6 +88,33 @@ app.delete("/pais/:id", (req, res) => {
     pais_controller.destroy(req.params.id);
     res.json();
 })
+
+app.post("/fabricante", (req, res) => {
+    const fabricante = req.body;
+    const code = fabricante_controller.store(fabricante);
+    res.status(code).json();
+  });
+  
+  app.get("/fabricante", (req, res) => {
+    const fabricantes = fabricante_controller.index();
+    res.json(fabricantes);
+  });
+  
+  app.get("/fabricante/:id", (req, res) => {
+    const fabricante = fabricante_controller.show(req.params.id);
+    res.json(fabricante);
+  });
+  
+  app.put("/fabricante/:id", (req, res) => {
+      const fabricante = req.body
+      const code = fabricante_controller.update(req.params.id, fabricante)
+      res.status(code).json()
+  })
+  
+  app.delete("/fabricante/:id", (req, res) => {
+      fabricante_controller.destroy(req.params.id)
+      res.json()
+  })
 
 app.listen(port, () => {
     console.log("Gerenciador de rally executando na porta " + port);
