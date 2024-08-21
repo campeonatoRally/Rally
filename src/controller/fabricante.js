@@ -5,14 +5,12 @@ let nextId = 1;
 
 const model = (fabricante, id = nextId++) => {
   if (fabricante.nome != undefined && fabricante.nome != "" &&
-    fabricante.pais_id != undefined && fabricante.pais_nome != "" && pais_controller.show(fabricante.pais_id)
+    fabricante.pais_id != undefined && pais_controller.show(fabricante.pais_id)
    ){
     return {
       id,
       nome: fabricante.nome,
       pais_id: fabricante.pais_id,
-      pais_nome: fabricante.pais_nome,
-      nome: fabricante.nome,
     };
   }
 };
