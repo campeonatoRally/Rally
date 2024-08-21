@@ -3,12 +3,14 @@ const categoria_controller = require("./controller/categoria.js");
 const campeonato_controller = require("./controller/campeonato.js");
 const competidor_controller = require("./controller/competidor.js")
 const pais_controller = require("./controller/pais.js");
+const cidade_controller = require("./controller/cidade.js");
+const fabricante_controller = require("./controller/fabricante.js");
+
 const app = express();
-const port = 3000;
+const port = 3000; 
 
 app.use(express.json());
 
-// GERENCIAMENTO DE categoriaS
 app.post("/categoria", (req, res) => {
   const categoria = req.body;
   const code = categoria_controller.store(categoria);
@@ -90,19 +92,19 @@ app.delete("/pais/:id", (req, res) => {
 })
 
 app.post("/competidor", (req, res) => {
-const competidor = req.body;
-const code = competidor_controller.store(competidor);
-res.status(code).json();
+  const competidor = req.body;
+  const code = competidor_controller.store(competidor);
+  res.status(code).json();
 });
 
 app.get("/competidor", (req, res) => {
-const competidores = competidor_controller.index();
-res.json(competidores);
+  const competidores = competidor_controller.index();
+  res.json(competidores);
 });
 
 app.get("/competidor/:id", (req, res) => {
-const competidor = competidor_controller.show(req.params.id);
-res.json(competidor);
+  const competidor = competidor_controller.show(req.params.id);
+  res.json(competidor);
 });
 
 app.put("/competidor/:id", (req, res) => {
@@ -116,7 +118,59 @@ app.delete("/competidor/:id", (req, res) => {
     res.json()
 })
 
+app.post("/cidade", (req, res) => {
+  const cidade = req.body;
+  const code = cidade_controller.store(cidade);
+  res.status(code).json();
+});
+
+app.get("/cidade", (req, res) => {
+  const cidades = cidade_controller.index();
+  res.json(cidades);
+});
+
+app.get("/cidade/:id", (req, res) => {
+  const cidade = cidade_controller.show(req.params.id);
+  res.json(cidade);
+});
+  
+app.put("/cidade/:id", (req, res) => {
+    const cidade = req.body
+    const code = cidade_controller.update(req.params.id, cidade)
+    res.status(code).json()
+})
+  
+app.delete("/cidade/:id", (req, res) => {
+  cidade_controller.destroy(req.params.id)
+});
+ 
+app.post("/fabricante", (req, res) => {
+  const fabricante = req.body;
+  const code = fabricante_controller.store(fabricante);
+  res.status(code).json();
+});
+
+app.get("/fabricante", (req, res) => {
+  const fabricantes = fabricante_controller.index();
+  res.json(fabricantes);
+});
+
+app.get("/fabricante/:id", (req, res) => {
+  const fabricante = fabricante_controller.show(req.params.id);
+  res.json(fabricante);
+});
+
+app.put("/fabricante/:id", (req, res) => {
+    const fabricante = req.body
+    const code = fabricante_controller.update(req.params.id, fabricante)
+    res.status(code).json()
+})
+
+app.delete("/fabricante/:id", (req, res) => {
+    fabricante_controller.destroy(req.params.id)
+    res.json()
+})
+    
 app.listen(port, () => {
     console.log("Gerenciador de rally executando na porta " + port);
 });
-
