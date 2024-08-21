@@ -1,5 +1,6 @@
 const express = require("express");
 const campeonato_controller = require("./controller/campeonato.js");
+const pais_controller = require("./controller/pais.js");
 const app = express();
 const port = 3000;
 
@@ -21,10 +22,6 @@ app.get("/campeonato/:id", (req, res) => {
     res.json(campeonato);
 });
 
-app.listen(port, () => {
-    console.log("Gerenciador de rally executando na porta " + port);
-})
-
 app.put("/campeonato/:id", (req, res) => {
     const campeonato = req.body;
     const code = campeonato_controller.update(req.params.id, campeonato)
@@ -33,5 +30,35 @@ app.put("/campeonato/:id", (req, res) => {
 
 app.delete("/campeonato/:id", (req, res) => {
     campeonato_controller.destroy(req.params.id);
+});
+
+app.post('/pais', (req, res) => {
+    const pais = req.body;
+    const code = pais_controller.store(pais);
+    res.status(code).json()
+});
+
+app.get('/pais', (req, res) => {
+    const paises = pais_controller.index();
+    res.json(paises);
+});
+
+app.get("/pais/:id", (req, res) => {
+    const pais = pais_controller.show(req.params.id);
+    res.json(pais);
+});
+
+app.put("/pais/:id", (req, res) => {
+    const pais = req.body;
+    const code = pais_controller.update(req.params.id, pais)
+    res.status(code).json();
+});
+
+app.delete("/pais/:id", (req, res) => {
+    pais_controller.destroy(req.params.id);
     res.json();
 })
+
+app.listen(port, () => {
+    console.log("Gerenciador de rally executando na porta " + port);
+});
