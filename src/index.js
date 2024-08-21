@@ -1,9 +1,10 @@
 const express = require("express");
-const categoria_controller = require("./categoria.js");
+const categoria_controller = require("./controller/categoria.js");
 const campeonato_controller = require("./controller/campeonato.js");
 const pais_controller = require("./controller/pais.js");
+const cidade_controller = require("./controller/cidade.js");
 const app = express();
-const port = 3000;
+const port = 3000; 
 
 app.use(express.json());
 
@@ -87,6 +88,35 @@ app.delete("/pais/:id", (req, res) => {
     pais_controller.destroy(req.params.id);
     res.json();
 })
+
+
+
+  app.post("/cidade", (req, res) => {
+    const cidade = req.body;
+    const code = cidade_controller.store(cidade);
+    res.status(code).json();
+  });
+  
+  app.get("/cidade", (req, res) => {
+    const cidades = cidade_controller.index();
+    res.json(cidades);
+  });
+  
+  app.get("/cidade/:id", (req, res) => {
+    const cidade = cidade_controller.show(req.params.id);
+    res.json(cidade);
+  });
+  
+  app.put("/cidade/:id", (req, res) => {
+      const cidade = req.body
+      const code = cidade_controller.update(req.params.id, cidade)
+      res.status(code).json()
+  })
+  
+  app.delete("/cidade/:id", (req, res) => {
+      cidade_controller.destroy(req.params.id)
+      res.json()
+  })
 
 app.listen(port, () => {
     console.log("Gerenciador de rally executando na porta " + port);
