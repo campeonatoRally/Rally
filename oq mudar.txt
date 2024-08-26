@@ -1,0 +1,4 @@
+Em trecho retirar idCampeonato
+Em percurso retirar idCampeonato e idEtapa
+Inscrição não deve se relacionar com categoria. Categoria deve se relacionar ao campeonato
+Precisa-se criar outra tabela para o tipo de competidor ou retirar.

@@ -10,7 +10,7 @@ const model = (cidade, id = nextId++) => {
     return {
       id,
       nome: cidade.nome,
-      pais_id: cidade.pais_id,
+      idPais: cidade.idPais,
     };
   }
 };
