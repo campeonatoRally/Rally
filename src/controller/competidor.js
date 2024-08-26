@@ -1,21 +1,21 @@
 const db = [];
 let nextId = 1;
 const pais = require("./pais.js");
+const tipoCompetidor = require("./tipoCompetidor.js")
 
 const model = (body, id = nextId++) => {
   if (body.nome != undefined && 
     body.nome != "" &&
     body.licenca != undefined && 
     body.licenca != "" && 
-    body.tipoCompetidor != undefined && 
-    body.tipoCompetidor != "" &&
+    tipoCompetidor.show(body.idTipoCompetidor) &&
     pais.show(body.idPais)){
     
     return {
       id: id,
       nome: body.nome,
       licenca: body.licenca,
-      tipoCompetidor: body.tipoCompetidor,
+      idTipoCompetidor: body.idTipoCompetidor,
       idPais: body.idPais
     };
   }
