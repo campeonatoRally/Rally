@@ -6,10 +6,10 @@ const pais_controller = require("./controller/pais.js");
 const equipe_controller = require("./controller/equipe.js");
 const cidade_controller = require("./controller/cidade.js");
 const fabricante_controller = require("./controller/fabricante.js");
-const port = 5000;
+const modelo_controller = require("./controller/modelo.js");
+const port = 4000;
 
 const app = express();
-
 app.use(express.json());
 
 app.post("/categoria", (req, res) => {
@@ -199,6 +199,32 @@ app.delete("/fabricante/:id", (req, res) => {
     res.json()
 })
     
+app.post("/modelo", (req, res) => {
+  const modelo = req.body;
+  const code = modelo_controller.store(modelo);
+  res.status(code).json();
+});
+
+app.get("/modelo", (req, res) => {
+  const modelos = modelo_controller.index();
+  res.json(modelos);
+});
+
+app.get("/modelo/:id", (req, res) => {
+  const modelo = modelo_controller.show(req.params.id);
+  res.json(modelo);
+});
+  
+app.put("/modelo/:id", (req, res) => {
+    const modelo = req.body
+    const code = modelo_controller.update(req.params.id, modelo)
+    res.status(code).json()
+})
+  
+app.delete("/modelo/:id", (req, res) => {
+  modelo_controller.destroy(req.params.id)
+});
+
 app.listen(port, () => {
   console.log("Gerenciador de rally executando na porta " + port);
 });
