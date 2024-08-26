@@ -1,15 +1,16 @@
 const express = require("express");
-const categoria_controller = require("./controller/categoria.js");
 const campeonato_controller = require("./controller/campeonato.js");
-const competidor_controller = require("./controller/competidor.js")
-const pais_controller = require("./controller/pais.js");
-const equipe_controller = require("./controller/equipe.js");
+const categoria_controller = require("./controller/categoria.js");
+const carro_controller = require("./controller/carro.js");
 const cidade_controller = require("./controller/cidade.js");
+const competidor_controller = require("./controller/competidor.js");
+const equipe_controller = require("./controller/equipe.js");
+const etapa_controller = require("./controller/etapa.js");
 const fabricante_controller = require("./controller/fabricante.js");
 const modelo_controller = require("./controller/modelo.js");
+const pais_controller = require("./controller/pais.js");
+
 const port = 4000;
-const etapa_controller = require("./controller/etapa.js");
-const port = 5000;
 
 const app = express();
 app.use(express.json());
@@ -256,6 +257,32 @@ app.post("/etapa", (req, res) => {
   app.delete("/etapa/:id", (req, res) => {
     etapa_controller.destroy(req.params.id);
     res.json();
+  });
+
+  app.post("/carro", (req, res) => {
+    const carro = req.body;
+    const code = carro_controller.store(carro);
+    res.status(code).json();
+  });
+  
+  app.get("/carro", (req, res) => {
+    const carros = carro_controller.index();
+    res.json(carros);
+  });
+  
+  app.get("/carro/:id", (req, res) => {
+    const carro = carro_controller.show(req.params.id);
+    res.json(carro);
+  });
+  
+  app.put("/carro/:id", (req, res) => {
+    const carro = req.body;
+    const code = carro_controller.update(req.params.id, carro);
+    res.status(code).json();
+  });
+  
+  app.delete("/carro/:id", (req, res) => {
+    carro_controller.destroy(req.params.id);
   });
 
   app.listen(port, () => {
