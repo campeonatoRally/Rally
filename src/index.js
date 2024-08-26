@@ -8,6 +8,8 @@ const cidade_controller = require("./controller/cidade.js");
 const fabricante_controller = require("./controller/fabricante.js");
 const modelo_controller = require("./controller/modelo.js");
 const port = 4000;
+const etapa_controller = require("./controller/etapa.js");
+const port = 5000;
 
 const app = express();
 app.use(express.json());
@@ -228,3 +230,34 @@ app.delete("/modelo/:id", (req, res) => {
 app.listen(port, () => {
   console.log("Gerenciador de rally executando na porta " + port);
 });
+
+app.post("/etapa", (req, res) => {
+    const etapa = req.body;
+    const code = etapa_controller.store(etapa);
+    res.status(code).json();
+  });
+  
+  app.get("/etapa", (req, res) => {
+    const etapas = etapa_controller.index();
+    res.json(etapas);
+  });
+  
+  app.get("/etapa/:id", (req, res) => {
+    const etapa = etapa_controller.show(req.params.id);
+    res.json(etapa);
+  });
+  
+  app.put("/etapa/:id", (req, res) => {
+    const etapa = req.body;
+    const code = etapa_controller.update(req.params.id, etapa);
+    res.status(code).json();
+  });
+  
+  app.delete("/etapa/:id", (req, res) => {
+    etapa_controller.destroy(req.params.id);
+    res.json();
+  });
+
+  app.listen(port, () => {
+    console.log("Gerenciador de rally executando na porta " + port);
+  });
