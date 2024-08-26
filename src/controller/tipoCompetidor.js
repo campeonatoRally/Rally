@@ -1,50 +1,40 @@
 const db = [];
-let nextId = 1;
-const categoria = require("./categoria.js")
+let proximoId = 1;
 
-const model = (body, id = nextId++) => {
-  if (body.anoRealizacao >= 0 &&
-      categoria.show(body.idCategoria)){
-    
+const model = (body, id = proximoId++) => {
+  if (body.nome != undefined && body.nome != "") {
     return {
       id: id,
-      anoRealizacao: parseInt(body.anoRealizacao),
-      idCategoria: body.idCategoria
+      nome: body.nome,
     };
   }
 };
 
 const store = (body) => {
-  const novo = model(body);
-
-  if (novo) {
-    db.push(novo);
+  const elemento = model(body);
+  if (elemento) {
+    db.push(elemento);
     return 201;
   }
-
   return 400;
 };
 
-const index = () => db;
+const show = (id) => db.find((el) => id == el.id);
 
-const show = (id) => db.find((el) => el.id == id);
+const index = () => db;
 
 const update = (id, body) => {
   const index = db.findIndex((el) => el.id == id);
   const novo = model(body, parseInt(id));
-
   if (novo && index != -1) {
     db[index] = novo;
-
     return 200;
   }
-
   return 400;
 };
 
 const destroy = (id) => {
   const index = db.findIndex((el) => el.id == id);
-
   if (index != -1) {
     db.splice(index, 1);
   }
@@ -52,8 +42,8 @@ const destroy = (id) => {
 
 module.exports = {
   store,
-  index,
   show,
+  index,
   update,
   destroy,
 };
