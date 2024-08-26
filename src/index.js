@@ -9,7 +9,6 @@ const fabricante_controller = require("./controller/fabricante.js");
 const modelo_controller = require("./controller/modelo.js");
 const port = 4000;
 const etapa_controller = require("./controller/etapa.js");
-const port = 5000;
 
 const app = express();
 app.use(express.json());
@@ -258,6 +257,59 @@ app.post("/etapa", (req, res) => {
     res.json();
   });
 
+  app.post("/tipoCompetidor", (req, res) => {
+    const tipoCompetidor = req.body;
+    const code = tipoCompetidor_controller.store(tipoCompetidor);
+    res.status(code).json();
+  });
+  
+  app.get("/tipoCompetidor", (req, res) => {
+    const tipoCompetidores = tipoCompetidor_controller.index();
+    res.json(tipoCompetidores);
+  });
+  
+  app.get("/tipoCompetidor/:id", (req, res) => {
+    const tipoCompetidor = tipoCompetidor_controller.show(req.params.id);
+    res.json(tipoCompetidor);
+  });
+  
+  app.put("/tipoCompetidor/:id", (req, res) => {
+    const tipoCompetidor = req.body;
+    const code = tipoCompetidor_controller.update(req.params.id, tipoCompetidor);
+    res.status(code).json();
+  });
+  
+  app.delete("/tipoCompetidor/:id", (req, res) => {
+    tipoCompetidor_controller.destroy(req.params.id);
+    res.json();
+  });
+
   app.listen(port, () => {
     console.log("Gerenciador de rally executando na porta " + port);
+  });
+
+  app.post("/tipoCompetidor", (req, res) => {
+    const tipoCompetidor = req.body;
+    const code = tipoCompetidor_controller.store(tipoCompetidor);
+    res.status(code).json();
+  });
+  
+  app.get("/tipoCompetidor", (req, res) => {
+    const tipoCompetidors = tipoCompetidor_controller.index();
+    res.json(tipoCompetidors);
+  });
+  
+  app.get("/tipoCompetidor/:id", (req, res) => {
+    const tipoCompetidor = tipoCompetidor_controller.show(req.params.id);
+    res.json(tipoCompetidor);
+  });
+  
+  app.put("/tipoCompetidor/:id", (req, res) => {
+    const tipoCompetidor = req.body;
+    const code = tipoCompetidor_controller.update(req.params.id, tipoCompetidor);
+    res.status(code).json();
+  });
+  
+  app.delete("/tipoCompetidor/:id", (req, res) => {
+    tipoCompetidor_controller.destroy(req.params.id);
   });
