@@ -1,23 +1,27 @@
-const fabricante_controller = require("./fabricante.js");
+const piloto_controller = require("./piloto.js");
+const equipe_controller = require("./equipe.js");
+const modelo_controller = require("./modelo.js");
 
 const db = [];
 let nextId = 1;
 
-const model = (modelo, id = nextId++, potencia, descricao) => {
+const model = (carro, id = nextId++, potencia, descricao) => {
   if (
-    modelo.nome != undefined &&
-    modelo.nome != "" &&
-    modelo.potencia != "" &&
-    modelo.descricao != "" &&
-    modelo.fabricante_id != undefined &&
-    fabricante_controller.show(modelo.fabricante_id)
+    carro.chassi != undefined &&
+    carro.chassi != "" &&
+    carro.piloto_id != undefined &&
+    carro.equipe_id != undefined &&
+    carro.modelo_id != undefined &&
+    piloto_controller.show(carro.piloto_id) &&
+    equipe_controller.show(carro.equipe_id) &&
+    modelo_controller.show(carro.modelo_id)
   ) {
     return {
       id,
-      potencia,
-      descricao,
-      nome: modelo.nome,
-      fabricante_id: modelo.fabricante_id,
+      chassi,
+      piloto_id: carro.piloto_id,
+      equipe_id: carro.equipe_id,
+      modelo_id: carro.modelo_id,
     };
   }
 };

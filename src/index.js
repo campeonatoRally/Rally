@@ -1,15 +1,22 @@
 const express = require("express");
-const categoria_controller = require("./controller/categoria.js");
 const campeonato_controller = require("./controller/campeonato.js");
-const competidor_controller = require("./controller/competidor.js");
-const pais_controller = require("./controller/pais.js");
-const equipe_controller = require("./controller/equipe.js");
+const categoria_controller = require("./controller/categoria.js");
+const carro_controller = require("./controller/carro.js");
 const cidade_controller = require("./controller/cidade.js");
+const competidor_controller = require("./controller/competidor.js");
+const equipe_controller = require("./controller/equipe.js");
+const etapa_controller = require("./controller/etapa.js");
 const fabricante_controller = require("./controller/fabricante.js");
 const modelo_controller = require("./controller/modelo.js");
+const pais_controller = require("./controller/pais.js");
 const trecho_controller = require("./controller/trecho.js");
+const tipoCompetidor_controller = require("./controller/tipoCompetidor.js");
+
 const port = 4000;
-const etapa_controller = require("./controller/etapa.js");
+
+const app = express();
+app.use(express.json());
+
 
 const app = express();
 app.use(express.json());
@@ -227,33 +234,6 @@ app.delete("/modelo/:id", (req, res) => {
   modelo_controller.destroy(req.params.id);
 });
 
-app.post("/etapa", (req, res) => {
-  const etapa = req.body;
-  const code = etapa_controller.store(etapa);
-  res.status(code).json();
-});
-
-app.get("/etapa", (req, res) => {
-  const etapas = etapa_controller.index();
-  res.json(etapas);
-});
-
-app.get("/etapa/:id", (req, res) => {
-  const etapa = etapa_controller.show(req.params.id);
-  res.json(etapa);
-});
-
-app.put("/etapa/:id", (req, res) => {
-  const etapa = req.body;
-  const code = etapa_controller.update(req.params.id, etapa);
-  res.status(code).json();
-});
-
-app.delete("/etapa/:id", (req, res) => {
-  etapa_controller.destroy(req.params.id);
-  res.json();
-});
-
 app.post("/tipoCompetidor", (req, res) => {
   const tipoCompetidor = req.body;
   const code = tipoCompetidor_controller.store(tipoCompetidor);
@@ -281,9 +261,58 @@ app.delete("/tipoCompetidor/:id", (req, res) => {
   res.json();
 });
 
-app.listen(port, () => {
-  console.log("Gerenciador de rally executando na porta " + port);
-});
+app.post("/etapa", (req, res) => {
+    const etapa = req.body;
+    const code = etapa_controller.store(etapa);
+    res.status(code).json();
+  });
+  
+  app.get("/etapa", (req, res) => {
+    const etapas = etapa_controller.index();
+    res.json(etapas);
+  });
+  
+  app.get("/etapa/:id", (req, res) => {
+    const etapa = etapa_controller.show(req.params.id);
+    res.json(etapa);
+  });
+  
+  app.put("/etapa/:id", (req, res) => {
+    const etapa = req.body;
+    const code = etapa_controller.update(req.params.id, etapa);
+    res.status(code).json();
+  });
+  
+  app.delete("/etapa/:id", (req, res) => {
+    etapa_controller.destroy(req.params.id);
+    res.json();
+  });
+
+  app.post("/carro", (req, res) => {
+    const carro = req.body;
+    const code = carro_controller.store(carro);
+    res.status(code).json();
+  });
+  
+  app.get("/carro", (req, res) => {
+    const carros = carro_controller.index();
+    res.json(carros);
+  });
+  
+  app.get("/carro/:id", (req, res) => {
+    const carro = carro_controller.show(req.params.id);
+    res.json(carro);
+  });
+  
+  app.put("/carro/:id", (req, res) => {
+    const carro = req.body;
+    const code = carro_controller.update(req.params.id, carro);
+    res.status(code).json();
+  });
+  
+  app.delete("/carro/:id", (req, res) => {
+    carro_controller.destroy(req.params.id);
+  });
 
 app.post("/trecho", (req, res) => {
   const trecho = req.body;
