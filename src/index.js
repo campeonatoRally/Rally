@@ -7,9 +7,10 @@ const equipe_controller = require("./controller/equipe.js");
 const cidade_controller = require("./controller/cidade.js");
 const fabricante_controller = require("./controller/fabricante.js");
 const modelo_controller = require("./controller/modelo.js");
+const trecho_controller = require("./controller/trecho.js");
 const port = 4000;
 const etapa_controller = require("./controller/etapa.js");
-const port = 5000;
+
 
 const app = express();
 app.use(express.json());
@@ -255,6 +256,33 @@ app.post("/etapa", (req, res) => {
   
   app.delete("/etapa/:id", (req, res) => {
     etapa_controller.destroy(req.params.id);
+    res.json();
+  });
+
+  app.post("/trecho", (req, res) => {
+    const trecho = req.body;
+    const code = trecho_controller.store(trecho);
+    res.status(code).json();
+  });
+  
+  app.get("/trecho", (req, res) => {
+    const trechoes = trecho_controller.index();
+    res.json(trechoes);
+  });
+  
+  app.get("/trecho/:id", (req, res) => {
+    const trecho = trecho_controller.show(req.params.id);
+    res.json(trecho);
+  });
+  
+  app.put("/trecho/:id", (req, res) => {
+    const trecho = req.body;
+    const code = trecho_controller.update(req.params.id, trecho);
+    res.status(code).json();
+  });
+  
+  app.delete("/trecho/:id", (req, res) => {
+    trecho_controller.destroy(req.params.id);
     res.json();
   });
 
