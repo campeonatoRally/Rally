@@ -5,7 +5,6 @@ const model = (body, id = nextId++) => {
   if (body.anoRealizacao >= 0){
     
     return {
-        
       id: id,
       anoRealizacao: parseInt(body.anoRealizacao)
     };
