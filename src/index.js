@@ -18,6 +18,8 @@ const port = 4000;
 const app = express();
 app.use(express.json());
 
+//------------------------------------------------------------------------
+
 app.post("/campeonato", (req, res) => {
   const campeonato = req.body;
   const code = campeonato_controller.store(campeonato);
@@ -42,7 +44,9 @@ app.put("/campeonato/:id", (req, res) => {
 
 app.delete("/campeonato/:id", (req, res) => {
   campeonato_controller.destroy(req.params.id);
+  res.json();
 });
+
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 
@@ -100,6 +104,7 @@ app.put("/carro/:id", (req, res) => {
 
 app.delete("/carro/:id", (req, res) => {
   carro_controller.destroy(req.params.id);
+  res.json();
 });
 
 //------------------------------------------------------------------------
@@ -129,6 +134,7 @@ app.put("/cidade/:id", (req, res) => {
 
 app.delete("/cidade/:id", (req, res) => {
   cidade_controller.destroy(req.params.id);
+  res.json();
 });
 
 //------------------------------------------------------------------------
@@ -287,7 +293,7 @@ app.delete("/inscricao/:id", (req, res) => {
 app.post("/modelo", (req, res) => {
   const modelo = req.body;
   const code = modelo_controller.store(modelo);
-  res.status(constcode).json();
+  res.status(code).json();
 });
 
 app.get("/modelo", (req, res) => {
@@ -308,6 +314,7 @@ app.put("/modelo/:id", (req, res) => {
 
 app.delete("/modelo/:id", (req, res) => {
   modelo_controller.destroy(req.params.id);
+  res.json();
 });
 
 //------------------------------------------------------------------------
