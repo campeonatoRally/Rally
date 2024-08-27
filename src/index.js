@@ -287,7 +287,7 @@ app.delete("/inscricao/:id", (req, res) => {
 app.post("/modelo", (req, res) => {
   const modelo = req.body;
   const code = modelo_controller.store(modelo);
-  res.status(constcode).json();
+  res.status(code).json();
 });
 
 app.get("/modelo", (req, res) => {
