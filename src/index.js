@@ -11,6 +11,7 @@ const modelo_controller = require("./controller/modelo.js");
 const pais_controller = require("./controller/pais.js");
 const trecho_controller = require("./controller/trecho.js");
 const tipoCompetidor_controller = require("./controller/tipoCompetidor.js");
+const inscricao_controller = require("./controller/inscricao.js");
 
 const port = 4000;
 
