@@ -9,6 +9,7 @@ const etapa_controller = require("./controller/etapa.js");
 const fabricante_controller = require("./controller/fabricante.js");
 const modelo_controller = require("./controller/modelo.js");
 const pais_controller = require("./controller/pais.js");
+const percurso_controller = require("./controller/percurso.js");
 const trecho_controller = require("./controller/trecho.js");
 const tipoCompetidor_controller = require("./controller/tipoCompetidor.js");
 
@@ -334,6 +335,33 @@ app.put("/trecho/:id", (req, res) => {
 
 app.delete("/trecho/:id", (req, res) => {
   trecho_controller.destroy(req.params.id);
+  res.json();
+});
+
+app.post("/percurso", (req, res) => {
+  const percurso = req.body;
+  const code = percurso_controller.store(percurso);
+  res.status(code).json();
+});
+
+app.get("/percurso", (req, res) => {
+  const percursos = percurso_controller.index();
+  res.json(percursos);
+});
+
+app.get("/percurso/:id", (req, res) => {
+  const percurso = percurso_controller.show(req.params.id);
+  res.json(percurso);
+});
+
+app.put("/percurso/:id", (req, res) => {
+  const percurso = req.body;
+  const code = percurso_controller.update(req.params.id, percurso);
+  res.status(code).json();
+});
+
+app.delete("/percurso/:id", (req, res) => {
+  percurso_controller.destroy(req.params.id);
   res.json();
 });
 
