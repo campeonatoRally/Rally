@@ -17,10 +17,6 @@ const port = 4000;
 const app = express();
 app.use(express.json());
 
-
-const app = express();
-app.use(express.json());
-
 app.post("/categoria", (req, res) => {
   const categoria = req.body;
   const code = categoria_controller.store(categoria);

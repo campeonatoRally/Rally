@@ -1,4 +1,4 @@
-const piloto_controller = require("./piloto.js");
+const piloto_controller = require("./competidor.js");
 const equipe_controller = require("./equipe.js");
 const modelo_controller = require("./modelo.js");
 
