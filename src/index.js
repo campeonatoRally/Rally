@@ -9,6 +9,7 @@ const etapa_controller = require("./controller/etapa.js");
 const fabricante_controller = require("./controller/fabricante.js");
 const modelo_controller = require("./controller/modelo.js");
 const pais_controller = require("./controller/pais.js");
+const percurso_controller = require("./controller/percurso.js");
 const trecho_controller = require("./controller/trecho.js");
 const tipoCompetidor_controller = require("./controller/tipoCompetidor.js");
 const inscricao_controller = require("./controller/inscricao.js");
@@ -338,6 +339,34 @@ app.delete("/trecho/:id", (req, res) => {
   res.json();
 });
 
+app.post("/percurso", (req, res) => {
+  const percurso = req.body;
+  const code = percurso_controller.store(percurso);
+  res.status(code).json();
+});
+
+app.get("/percurso", (req, res) => {
+  const percursos = percurso_controller.index();
+  res.json(percursos);
+});
+
+app.get("/percurso/:id", (req, res) => {
+  const percurso = percurso_controller.show(req.params.id);
+  res.json(percurso);
+});
+
+app.put("/percurso/:id", (req, res) => {
+  const percurso = req.body;
+  const code = percurso_controller.update(req.params.id, percurso);
+  res.status(code).json();
+});
+
+app.delete("/percurso/:id", (req, res) => {
+  percurso_controller.destroy(req.params.id);
+  res.json();
+});
+
+
 app.post("/inscricao", (req, res) => {
   const inscricao = req.body;
   const code = inscricao_controller.store(inscricao);
@@ -364,7 +393,6 @@ app.delete("/inscricao/:id", (req, res) => {
   inscricao_controller.destroy(req.params.id);
   res.json();
 });
-
 
 app.listen(port, () => {
   console.log("Gerenciador de rally executando na porta " + port);

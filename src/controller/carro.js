@@ -1,18 +1,21 @@
 const piloto_controller = require("./competidor.js");
+const navegador_controller = require("./competidor.js");
 const equipe_controller = require("./equipe.js");
 const modelo_controller = require("./modelo.js");
+
 
 const db = [];
 let nextId = 1;
 
-const model = (carro, id = nextId++, potencia, descricao) => {
+const model = (carro, id = nextId++, chassi) => {
   if (
     carro.chassi != undefined &&
     carro.chassi != "" &&
     carro.piloto_id != undefined &&
     carro.equipe_id != undefined &&
     carro.modelo_id != undefined &&
-    piloto_controller.show(carro.piloto_id) &&
+    piloto_controller.show(carro.piloto_id) && 
+    navegador_controller.show(carro.navegador_id) &&
     equipe_controller.show(carro.equipe_id) &&
     modelo_controller.show(carro.modelo_id)
   ) {
