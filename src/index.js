@@ -337,6 +337,34 @@ app.delete("/trecho/:id", (req, res) => {
   res.json();
 });
 
+app.post("/inscricao", (req, res) => {
+  const inscricao = req.body;
+  const code = inscricao_controller.store(inscricao);
+  res.status(code).json();
+});
+
+app.get("/inscricao", (req, res) => {
+  const inscricoes = inscricao_controller.index();
+  res.json(inscricoes);
+});
+
+app.get("/inscricao/:id", (req, res) => {
+  const inscricao = inscricao_controller.show(req.params.id);
+  res.json(inscricao);
+});
+
+app.put("/inscricao/:id", (req, res) => {
+  const inscricao = req.body;
+  const code = inscricao_controller.update(req.params.id, inscricao);
+  res.status(code).json();
+});
+
+app.delete("/inscricao/:id", (req, res) => {
+  inscricao_controller.destroy(req.params.id);
+  res.json();
+});
+
+
 app.listen(port, () => {
   console.log("Gerenciador de rally executando na porta " + port);
 });
