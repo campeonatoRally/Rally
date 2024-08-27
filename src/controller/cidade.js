@@ -7,8 +7,8 @@ const model = (cidade, id = nextId++) => {
   if (
     cidade.nome != undefined &&
     cidade.nome != "" &&
-    cidade.pais_id != undefined &&
-    pais_controller.show(cidade.pais_id)
+    cidade.idPais != undefined &&
+    pais_controller.show(cidade.idPais)
   ) {
     return {
       id,

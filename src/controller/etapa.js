@@ -11,7 +11,7 @@ const model = (body, id = proximoId++) => {
       body.dataEtapa != "" && 
       body.dataEtapa != undefined) {
     return {
-      idEtapa: id,
+      id: id,
       idCampeonato: body.idCampeonato,
       nome: body.nome,
       dataEtapa: body.dataEtapa,
