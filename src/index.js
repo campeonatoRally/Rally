@@ -7,17 +7,44 @@ const competidor_controller = require("./controller/competidor.js");
 const equipe_controller = require("./controller/equipe.js");
 const etapa_controller = require("./controller/etapa.js");
 const fabricante_controller = require("./controller/fabricante.js");
+const inscricao_controller = require("./controller/inscricao.js");
 const modelo_controller = require("./controller/modelo.js");
 const pais_controller = require("./controller/pais.js");
 const percurso_controller = require("./controller/percurso.js");
-const trecho_controller = require("./controller/trecho.js");
 const tipoCompetidor_controller = require("./controller/tipoCompetidor.js");
-const inscricao_controller = require("./controller/inscricao.js");
+const trecho_controller = require("./controller/trecho.js");
 
 const port = 4000;
-
 const app = express();
 app.use(express.json());
+
+app.post("/campeonato", (req, res) => {
+  const campeonato = req.body;
+  const code = campeonato_controller.store(campeonato);
+  res.status(code).json();
+});
+
+app.get("/campeonato", (req, res) => {
+  const campeonatos = campeonato_controller.index();
+  res.json(campeonatos);
+});
+
+app.get("/campeonato/:id", (req, res) => {
+  const campeonato = campeonato_controller.show(req.params.id);
+  res.json(campeonato);
+});
+
+app.put("/campeonato/:id", (req, res) => {
+  const campeonato = req.body;
+  const code = campeonato_controller.update(req.params.id, campeonato);
+  res.status(code).json();
+});
+
+app.delete("/campeonato/:id", (req, res) => {
+  campeonato_controller.destroy(req.params.id);
+});
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
 
 app.post("/categoria", (req, res) => {
   const categoria = req.body;
@@ -46,85 +73,66 @@ app.delete("/categoria/:id", (req, res) => {
   res.json();
 });
 
-app.post("/campeonato", (req, res) => {
-  const campeonato = req.body;
-  const code = campeonato_controller.store(campeonato);
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+app.post("/carro", (req, res) => {
+  const carro = req.body;
+  const code = carro_controller.store(carro);
+    res.status(code).json();
+});
+
+app.get("/carro", (req, res) => {
+  const carros = carro_controller.index();
+  res.json(carros);
+});
+
+app.get("/carro/:id", (req, res) => {
+  const carro = carro_controller.show(req.params.id);
+  res.json(carro);
+  });
+
+app.put("/carro/:id", (req, res) => {
+  const carro = req.body;
+  const code = carro_controller.update(req.params.id, carro);
   res.status(code).json();
 });
 
-app.get("/campeonato", (req, res) => {
-  const campeonatos = campeonato_controller.index();
-  res.json(campeonatos);
+app.delete("/carro/:id", (req, res) => {
+  carro_controller.destroy(req.params.id);
 });
 
-app.get("/campeonato/:id", (req, res) => {
-  const campeonato = campeonato_controller.show(req.params.id);
-  res.json(campeonato);
-});
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
 
-app.put("/campeonato/:id", (req, res) => {
-  const campeonato = req.body;
-  const code = campeonato_controller.update(req.params.id, campeonato);
+app.post("/cidade", (req, res) => {
+  const cidade = req.body;
+  const code = cidade_controller.store(cidade);
   res.status(code).json();
 });
 
-app.delete("/campeonato/:id", (req, res) => {
-  campeonato_controller.destroy(req.params.id);
+app.get("/cidade", (req, res) => {
+  const cidades = cidade_controller.index();
+  res.json(cidades);
 });
 
-app.post("/pais", (req, res) => {
-  const pais = req.body;
-  const code = pais_controller.store(pais);
+app.get("/cidade/:id", (req, res) => {
+  const cidade = cidade_controller.show(req.params.id);
+  res.json(cidade);
+});
+
+app.put("/cidade/:id", (req, res) => {
+  const cidade = req.body;
+  const code = cidade_controller.update(req.params.id, cidade);
   res.status(code).json();
 });
 
-app.get("/pais", (req, res) => {
-  const paises = pais_controller.index();
-  res.json(paises);
+app.delete("/cidade/:id", (req, res) => {
+  cidade_controller.destroy(req.params.id);
 });
 
-app.get("/pais/:id", (req, res) => {
-  const pais = pais_controller.show(req.params.id);
-  res.json(pais);
-});
-
-app.put("/pais/:id", (req, res) => {
-  const pais = req.body;
-  const code = pais_controller.update(req.params.id, pais);
-  res.status(code).json();
-});
-
-app.delete("/pais/:id", (req, res) => {
-  pais_controller.destroy(req.params.id);
-  res.json();
-});
-
-app.post("/equipe", (req, res) => {
-  const equipe = req.body;
-  const code = equipe_controller.store(equipe);
-  res.status(code).json();
-});
-
-app.get("/equipe", (req, res) => {
-  const equipes = equipe_controller.index();
-  res.json(equipes);
-});
-
-app.get("/equipe/:id", (req, res) => {
-  const equipe = equipe_controller.show(req.params.id);
-  res.json(equipe);
-});
-
-app.put("/equipe/:id", (req, res) => {
-  const equipe = req.body;
-  const code = equipe_controller.update(req.params.id, equipe);
-  res.status(code).json();
-});
-
-app.delete("/equipe/:id", (req, res) => {
-  equipe_controller.destroy(req.params.id);
-  res.json();
-});
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
 
 app.post("/competidor", (req, res) => {
   const competidor = req.body;
@@ -153,31 +161,68 @@ app.delete("/competidor/:id", (req, res) => {
   res.json();
 });
 
-app.post("/cidade", (req, res) => {
-  const cidade = req.body;
-  const code = cidade_controller.store(cidade);
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+app.post("/equipe", (req, res) => {
+  const equipe = req.body;
+  const code = equipe_controller.store(equipe);
   res.status(code).json();
 });
 
-app.get("/cidade", (req, res) => {
-  const cidades = cidade_controller.index();
-  res.json(cidades);
+app.get("/equipe", (req, res) => {
+  const equipes = equipe_controller.index();
+  res.json(equipes);
 });
 
-app.get("/cidade/:id", (req, res) => {
-  const cidade = cidade_controller.show(req.params.id);
-  res.json(cidade);
+app.get("/equipe/:id", (req, res) => {
+  const equipe = equipe_controller.show(req.params.id);
+  res.json(equipe);
 });
 
-app.put("/cidade/:id", (req, res) => {
-  const cidade = req.body;
-  const code = cidade_controller.update(req.params.id, cidade);
+app.put("/equipe/:id", (req, res) => {
+  const equipe = req.body;
+  const code = equipe_controller.update(req.params.id, equipe);
   res.status(code).json();
 });
 
-app.delete("/cidade/:id", (req, res) => {
-  cidade_controller.destroy(req.params.id);
+app.delete("/equipe/:id", (req, res) => {
+  equipe_controller.destroy(req.params.id);
+  res.json();
 });
+
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+app.post("/etapa", (req, res) => {
+  const etapa = req.body;
+  const code = etapa_controller.store(etapa);
+  res.status(code).json();
+});
+
+app.get("/etapa", (req, res) => {
+  const etapas = etapa_controller.index();
+  res.json(etapas);
+});
+
+app.get("/etapa/:id", (req, res) => {
+  const etapa = etapa_controller.show(req.params.id);
+  res.json(etapa);
+});
+
+app.put("/etapa/:id", (req, res) => {
+  const etapa = req.body;
+  const code = etapa_controller.update(req.params.id, etapa);
+  res.status(code).json();
+});
+
+app.delete("/etapa/:id", (req, res) => {
+  etapa_controller.destroy(req.params.id);
+  res.json();
+});
+
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
 
 app.post("/fabricante", (req, res) => {
   const fabricante = req.body;
@@ -206,10 +251,43 @@ app.delete("/fabricante/:id", (req, res) => {
   res.json();
 });
 
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+app.post("/inscricao", (req, res) => {
+  const inscricao = req.body;
+  const code = inscricao_controller.store(inscricao);
+  res.status(code).json();
+});
+
+app.get("/inscricao", (req, res) => {
+  const inscricoes = inscricao_controller.index();
+  res.json(inscricoes);
+});
+
+app.get("/inscricao/:id", (req, res) => {
+  const inscricao = inscricao_controller.show(req.params.id);
+  res.json(inscricao);
+});
+
+app.put("/inscricao/:id", (req, res) => {
+  const inscricao = req.body;
+  const code = inscricao_controller.update(req.params.id, inscricao);
+  res.status(code).json();
+});
+
+app.delete("/inscricao/:id", (req, res) => {
+  inscricao_controller.destroy(req.params.id);
+  res.json();
+});
+
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
 app.post("/modelo", (req, res) => {
   const modelo = req.body;
   const code = modelo_controller.store(modelo);
-  res.status(code).json();
+  res.status(constcode).json();
 });
 
 app.get("/modelo", (req, res) => {
@@ -232,112 +310,38 @@ app.delete("/modelo/:id", (req, res) => {
   modelo_controller.destroy(req.params.id);
 });
 
-app.post("/tipoCompetidor", (req, res) => {
-  const tipoCompetidor = req.body;
-  const code = tipoCompetidor_controller.store(tipoCompetidor);
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+app.post("/pais", (req, res) => {
+  const pais = req.body;
+  const code = pais_controller.store(pais);
   res.status(code).json();
 });
 
-app.get("/tipoCompetidor", (req, res) => {
-  const tipoCompetidores = tipoCompetidor_controller.index();
-  res.json(tipoCompetidores);
+app.get("/pais", (req, res) => {
+  const paises = pais_controller.index();
+  res.json(paises);
 });
 
-app.get("/tipoCompetidor/:id", (req, res) => {
-  const tipoCompetidor = tipoCompetidor_controller.show(req.params.id);
-  res.json(tipoCompetidor);
+app.get("/pais/:id", (req, res) => {
+  const pais = pais_controller.show(req.params.id);
+  res.json(pais);
 });
 
-app.put("/tipoCompetidor/:id", (req, res) => {
-  const tipoCompetidor = req.body;
-  const code = tipoCompetidor_controller.update(req.params.id, tipoCompetidor);
+app.put("/pais/:id", (req, res) => {
+  const pais = req.body;
+  const code = pais_controller.update(req.params.id, pais);
   res.status(code).json();
 });
 
-app.delete("/tipoCompetidor/:id", (req, res) => {
-  tipoCompetidor_controller.destroy(req.params.id);
+app.delete("/pais/:id", (req, res) => {
+  pais_controller.destroy(req.params.id);
   res.json();
 });
 
-app.post("/etapa", (req, res) => {
-    const etapa = req.body;
-    const code = etapa_controller.store(etapa);
-    res.status(code).json();
-  });
-  
-  app.get("/etapa", (req, res) => {
-    const etapas = etapa_controller.index();
-    res.json(etapas);
-  });
-  
-  app.get("/etapa/:id", (req, res) => {
-    const etapa = etapa_controller.show(req.params.id);
-    res.json(etapa);
-  });
-  
-  app.put("/etapa/:id", (req, res) => {
-    const etapa = req.body;
-    const code = etapa_controller.update(req.params.id, etapa);
-    res.status(code).json();
-  });
-  
-  app.delete("/etapa/:id", (req, res) => {
-    etapa_controller.destroy(req.params.id);
-    res.json();
-  });
-
-  app.post("/carro", (req, res) => {
-    const carro = req.body;
-    const code = carro_controller.store(carro);
-    res.status(code).json();
-  });
-  
-  app.get("/carro", (req, res) => {
-    const carros = carro_controller.index();
-    res.json(carros);
-  });
-  
-  app.get("/carro/:id", (req, res) => {
-    const carro = carro_controller.show(req.params.id);
-    res.json(carro);
-  });
-  
-  app.put("/carro/:id", (req, res) => {
-    const carro = req.body;
-    const code = carro_controller.update(req.params.id, carro);
-    res.status(code).json();
-  });
-  
-  app.delete("/carro/:id", (req, res) => {
-    carro_controller.destroy(req.params.id);
-  });
-
-app.post("/trecho", (req, res) => {
-  const trecho = req.body;
-  const code = trecho_controller.store(trecho);
-  res.status(code).json();
-});
-
-app.get("/trecho", (req, res) => {
-  const trechoes = trecho_controller.index();
-  res.json(trechoes);
-});
-
-app.get("/trecho/:id", (req, res) => {
-  const trecho = trecho_controller.show(req.params.id);
-  res.json(trecho);
-});
-
-app.put("/trecho/:id", (req, res) => {
-  const trecho = req.body;
-  const code = trecho_controller.update(req.params.id, trecho);
-  res.status(code).json();
-});
-
-app.delete("/trecho/:id", (req, res) => {
-  trecho_controller.destroy(req.params.id);
-  res.json();
-});
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
 
 app.post("/percurso", (req, res) => {
   const percurso = req.body;
@@ -366,33 +370,67 @@ app.delete("/percurso/:id", (req, res) => {
   res.json();
 });
 
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
 
-app.post("/inscricao", (req, res) => {
-  const inscricao = req.body;
-  const code = inscricao_controller.store(inscricao);
+app.post("/tipoCompetidor", (req, res) => {
+  const tipoCompetidor = req.body;
+  const code = tipoCompetidor_controller.store(tipoCompetidor);
   res.status(code).json();
 });
 
-app.get("/inscricao", (req, res) => {
-  const inscricoes = inscricao_controller.index();
-  res.json(inscricoes);
+app.get("/tipoCompetidor", (req, res) => {
+  const tipoCompetidores = tipoCompetidor_controller.index();
+  res.json(tipoCompetidores);
 });
 
-app.get("/inscricao/:id", (req, res) => {
-  const inscricao = inscricao_controller.show(req.params.id);
-  res.json(inscricao);
+app.get("/tipoCompetidor/:id", (req, res) => {
+  const tipoCompetidor = tipoCompetidor_controller.show(req.params.id);
+  res.json(tipoCompetidor);
 });
 
-app.put("/inscricao/:id", (req, res) => {
-  const inscricao = req.body;
-  const code = inscricao_controller.update(req.params.id, inscricao);
+app.put("/tipoCompetidor/:id", (req, res) => {
+  const tipoCompetidor = req.body;
+  const code = tipoCompetidor_controller.update(req.params.id, tipoCompetidor);
   res.status(code).json();
 });
 
-app.delete("/inscricao/:id", (req, res) => {
-  inscricao_controller.destroy(req.params.id);
+app.delete("/tipoCompetidor/:id", (req, res) => {
+  tipoCompetidor_controller.destroy(req.params.id);
   res.json();
 });
+
+//------------------------------------------------------------------------
+//------------------------------------------------------------------------
+
+app.post("/trecho", (req, res) => {
+  const trecho = req.body;
+  const code = trecho_controller.store(trecho);
+  res.status(code).json();
+});
+
+app.get("/trecho", (req, res) => {
+  const trechoes = trecho_controller.index();
+  res.json(trechoes);
+});
+
+app.get("/trecho/:id", (req, res) => {
+  const trecho = trecho_controller.show(req.params.id);
+  res.json(trecho);
+});
+
+app.put("/trecho/:id", (req, res) => {
+  const trecho = req.body;
+  const code = trecho_controller.update(req.params.id, trecho);
+  res.status(code).json();
+});
+
+app.delete("/trecho/:id", (req, res) => {
+  trecho_controller.destroy(req.params.id);
+  res.json();
+});
+
+//------------------------------------------------------------------------
 
 app.listen(port, () => {
   console.log("Gerenciador de rally executando na porta " + port);
