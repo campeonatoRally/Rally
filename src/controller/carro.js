@@ -11,20 +11,22 @@ const model = (carro, id = nextId++, chassi) => {
   if (
     carro.chassi != undefined &&
     carro.chassi != "" &&
-    carro.piloto_id != undefined &&
-    carro.equipe_id != undefined &&
-    carro.modelo_id != undefined &&
-    piloto_controller.show(carro.piloto_id) && 
-    navegador_controller.show(carro.navegador_id) &&
-    equipe_controller.show(carro.equipe_id) &&
-    modelo_controller.show(carro.modelo_id)
+    carro.idPiloto != undefined &&
+    carro.idNavegador != undefined &&
+    carro.idEquipe != undefined &&
+    carro.idModelo != undefined &&
+    piloto_controller.show(carro.idPiloto) && 
+    navegador_controller.show(carro.idNavegador) &&
+    equipe_controller.show(carro.idEquipe) &&
+    modelo_controller.show(carro.idModelo)
   ) {
     return {
-      id,
-      chassi,
-      piloto_id: carro.piloto_id,
-      equipe_id: carro.equipe_id,
-      modelo_id: carro.modelo_id,
+      id: id,
+      chassi: chassi.body,
+      idPiloto: body.idPiloto,
+      idNavegador: body.idNavegador,
+      idEquipe: body.idEquipe,
+      idModelo: body.idModelo,
     };
   }
 };

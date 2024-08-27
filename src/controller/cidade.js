@@ -11,9 +11,9 @@ const model = (cidade, id = nextId++) => {
     pais_controller.show(cidade.idPais)
   ) {
     return {
-      id,
-      nome: cidade.nome,
-      idPais: cidade.idPais,
+      id: id,
+      nome: body.nome,
+      idPais: body.idPais,
     };
   }
 };

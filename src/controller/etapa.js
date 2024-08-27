@@ -12,8 +12,8 @@ const model = (body, id = proximoId++) => {
       body.dataEtapa != undefined) {
     return {
       id: id,
-      idCampeonato: body.idCampeonato,
       nome: body.nome,
+      idCampeonato: body.idCampeonato,
       dataEtapa: body.dataEtapa,
       idCidade: body.idCidade
     };

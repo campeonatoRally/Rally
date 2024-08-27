@@ -15,9 +15,9 @@ const model = (percurso, tempoPercurso, quantPontos) => {
     trecho_controller.show(percurso.trecho_id)
   ) {
     return {
-      chassi,
-      tempoPercurso,
-      quantPontos,
+      chassi: percurso.chassi,
+      tempoPercurso: percurso.tempoPercurso,
+      quantPontos: percurso.quantPontos,
       carro_id: percurso.carro_id,
       trecho_id: percurso.trecho_id,
     };

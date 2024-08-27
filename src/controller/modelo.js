@@ -9,15 +9,15 @@ const model = (modelo, id = nextId++, potencia, descricao) => {
     modelo.nome != "" &&
     modelo.potencia != "" &&
     modelo.descricao != "" &&
-    modelo.fabricante_id != undefined &&
-    fabricante_controller.show(modelo.fabricante_id)
+    modelo.idFabricante != undefined &&
+    fabricante_controller.show(modelo.idFabricante)
   ) {
     return {
-      id,
-      potencia,
-      descricao,
+      id: id,
+      potencia: potencia.nome,
+      descricao: descricao.body,
       nome: modelo.nome,
-      fabricante_id: modelo.fabricante_id,
+      idFabricante: modelo.idFabricante,
     };
   }
 };

@@ -5,7 +5,8 @@ const etapa = require("./etapa.js");
 const model = (body, id = proximoId++) => {
   if (body.tempoPrevisto != undefined && 
     body.tempoPrevisto != "" && 
-    etapa.show(body.idEtapa)) {
+    etapa.show(body.idEtapa)
+  ) {
     return {
       id: id,
       idEtapa: body.idEtapa,

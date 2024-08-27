@@ -1,16 +1,18 @@
+const campeonato_controller = require("./campeonato.js");
+const carro_controller = require("./carro.js");
+
 const db = [];
 let proximoId = 1;
-const campeonato = require("./campeonato.js");
-const carro = require("./carro.js");
 
 const model = (body, id = proximoId++) => {
-  if (campeonato.show(body.idCampeonato) && 
-      carro.show(body.idCarro)) {
-    return {
-      id: id,
-      idCampeonato: body.idCampeonato,
-      idCarro: body.idCarro
-    };
+  if (campeonato_controller.show(body.idCampeonato) && 
+  carro_controller.show(body.idCarro)
+) {
+  return {
+    id: id,
+    idCampeonato: body.idCampeonato,
+    idCarro: body.idCarro
+  };
   }
 };
 

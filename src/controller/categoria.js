@@ -4,7 +4,7 @@ let nextId = 1;
 const model = (categoria, id = nextId++) => {
   if (categoria.nome != undefined && categoria.nome != "") {
     return {
-      id,
+      id: id,
       nome: categoria.nome,
     };
   }
@@ -12,7 +12,6 @@ const model = (categoria, id = nextId++) => {
 
 const store = (body) => {
   const novo = model(body);
-
   if (novo) {
     db.push(novo);
     return 201;
