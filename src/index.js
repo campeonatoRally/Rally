@@ -12,6 +12,7 @@ const pais_controller = require("./controller/pais.js");
 const percurso_controller = require("./controller/percurso.js");
 const trecho_controller = require("./controller/trecho.js");
 const tipoCompetidor_controller = require("./controller/tipoCompetidor.js");
+const inscricao_controller = require("./controller/inscricao.js");
 
 const port = 4000;
 
@@ -362,6 +363,34 @@ app.put("/percurso/:id", (req, res) => {
 
 app.delete("/percurso/:id", (req, res) => {
   percurso_controller.destroy(req.params.id);
+  res.json();
+});
+
+
+app.post("/inscricao", (req, res) => {
+  const inscricao = req.body;
+  const code = inscricao_controller.store(inscricao);
+  res.status(code).json();
+});
+
+app.get("/inscricao", (req, res) => {
+  const inscricoes = inscricao_controller.index();
+  res.json(inscricoes);
+});
+
+app.get("/inscricao/:id", (req, res) => {
+  const inscricao = inscricao_controller.show(req.params.id);
+  res.json(inscricao);
+});
+
+app.put("/inscricao/:id", (req, res) => {
+  const inscricao = req.body;
+  const code = inscricao_controller.update(req.params.id, inscricao);
+  res.status(code).json();
+});
+
+app.delete("/inscricao/:id", (req, res) => {
+  inscricao_controller.destroy(req.params.id);
   res.json();
 });
 
